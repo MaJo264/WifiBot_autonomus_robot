@@ -1,23 +1,70 @@
-## Wifibot Autonomous Robot Project
+# 🧭 WiFiBot — Autonomous Navigation Robot
 
-In this project, I implemented an autonomous navigation system for the Wifibot robot, using a Raspberry Pi 3 B as the primary controller. The system is designed to navigate from point A to point B autonomously while avoiding obstacles in real-time. The robot is equipped with IR sensors for proximity detection and obstacle avoidance, providing a reliable and cost-effective solution for environmental awareness.
+Full autonomy stack on a Raspberry Pi — real-time object detection, obstacle avoidance, and path planning in a modular ROS architecture. Python and C++ on resource-constrained embedded hardware.
 
-### Objectives
+![C++](https://img.shields.io/badge/C++-97%25-blue) ![Python](https://img.shields.io/badge/Python-3.8+-yellow) ![ROS](https://img.shields.io/badge/Framework-ROS-brightgreen) ![YOLOv8](https://img.shields.io/badge/Detection-YOLOv8-green) ![Platform](https://img.shields.io/badge/Platform-Raspberry%20Pi%203B-red)
 
-The project had two primary objectives:
-1. **Autonomous Navigation**: The robot needed to move from a predefined starting point (Point A) to a destination (Point B) without any human intervention. This was achieved by integrating a custom path planning algorithm with sensor inputs, allowing the robot to dynamically adjust its path in response to the environment.
-  
-2. **Obstacle Avoidance**: To ensure safe navigation, the robot was equipped with IR sensors that continuously monitor the surroundings for obstacles. When an obstacle is detected, the robot calculates an alternate path to avoid it, ensuring smooth and uninterrupted movement.
+## 📌 Overview
+WiFiBot is an autonomous ground robot built on the **Wifibot** platform, controlled by a **Raspberry Pi 3B**. The system navigates from a start point to a destination entirely autonomously — detecting and avoiding obstacles in real time using IR sensors and YOLOv8-based object detection. Built as part of an MSc in Automotive Embedded Systems (ESIGELEC, Rouen).
 
-### Object Detection
+## 🎯 Features
 
-To enhance the robot's capabilities, I integrated YOLOv8 for real-time object detection. This allows the robot to identify and react to various objects in its environment, adding an additional layer of intelligence to the navigation system. YOLOv8 was trained to recognize specific objects relevant to the operating environment, enabling the robot to make informed decisions during its journey.
+**Autonomous Navigation (A → B)** — Custom path planning algorithm integrated with sensor inputs. Navigates to a destination without human intervention, dynamically adjusting its path in response to the environment.
 
-### Hardware and Software
+**Real-Time Obstacle Avoidance** — IR sensors continuously monitor the surroundings. When an obstacle is detected, the system calculates an alternate path and adjusts heading in real time.
 
-- **Controller**: Raspberry Pi 3 B board
-- **Sensors**: IR sensors for obstacle detection
-- **Computer Vision**: YOLOv8 for object detection
-- **Software Framework**: Python with ROS (Robot Operating System) for sensor integration and path planning
+**Deep Learning Object Detection** — YOLOv8 runs on the Raspberry Pi camera feed to identify and classify objects — adding an intelligence layer on top of IR-based proximity detection.
 
-The modular design of this project allows for easy expansion and upgrading of both hardware and software components, making it adaptable for future enhancements.
+## 🛠️ Tech Stack
+
+| Component | Technology |
+|-----------|------------|
+| Object Detection | YOLOv8 |
+| Robot Framework | ROS |
+| Primary Language | C++ |
+| Vision & ML | Python |
+| Controller | Raspberry Pi 3B |
+| Sensors | IR Proximity Sensors |
+
+## 📁 Repository Structure
+
+```
+├── main.cpp              # Main robot control loop
+├── WifibotClient.cpp     # Motor control interface
+├── WifibotClient.h       # WiFiBot client header
+├── cam.py                # Camera feed + YOLOv8 detection
+└── README.md
+```
+
+## ⚙️ Setup & Installation
+```bash
+# Python dependencies
+pip install ultralytics opencv-python numpy
+
+# Build C++ components
+g++ -o wifibot_control main.cpp WifibotClient.cpp -std=c++17
+
+# Run
+roscore
+python3 cam.py
+./wifibot_control
+```
+
+## 📊 Results
+
+- ✅ Autonomous A→B navigation validated on real hardware
+- ✅ Real-time obstacle avoidance using IR sensors
+- ✅ YOLOv8 object detection on Raspberry Pi camera feed
+- ✅ Modular C++/Python architecture — clean separation between perception, planning, and control
+
+## 🔮 Future Work
+
+- Migrate to ROS2 for improved real-time performance
+- Integrate SLAM for map-based localisation
+- Add Deep SORT multi-object tracking
+- Deploy TensorRT-optimised YOLOv8 for faster edge inference
+
+## 👤 Author
+
+**Avin Joseph** — MSc Automotive Embedded Systems, ESIGELEC Rouen  
+[LinkedIn](https://linkedin.com/in/avin-joseph) · [GitHub](https://github.com/MaJo264)
